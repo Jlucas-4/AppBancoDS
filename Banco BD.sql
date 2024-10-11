@@ -24,3 +24,4 @@ Sexo char(1) not null
 insert into tbcliente(nomeCli, Email, DataNasc, Sexo)
 				values('Teste', 'teste.decoisa@gmail.com', '1917-05-01', '4');
 select * from tbcliente;
+delete from tbcliente where IdCli = 2
