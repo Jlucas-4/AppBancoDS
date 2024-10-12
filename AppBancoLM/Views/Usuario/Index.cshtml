@@ -1,0 +1,59 @@
+﻿@model IEnumerable<AppBancoLM.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nomeUsua)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cargo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataNasc)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdUsu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomeUsua)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cargo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataNasc)
+            </td>
+            <td>
+                <button type="button" class="btn btn-warning">
+                @Html.ActionLink("Editar", "AtualizarUsuario", new { /* id=item.PrimaryKey */ })
+                </button>|
+                <button type="button" class="btn btn-secondary">
+                        @Html.ActionLink("Detalhes", "DetalhesUsuario", new { /* id=item.PrimaryKey */ })
+                </button>|
+                <button type="button" class="btn btn-danger">
+                @Html.ActionLink("Deletar", "ExcluirUsuario", new { /* id=item.PrimaryKey */ })
+                </button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

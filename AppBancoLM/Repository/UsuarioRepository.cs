@@ -19,13 +19,13 @@ namespace AppBancoLM.Repository
             {
                 conexao.Open();
 
-                MySqlCommand cmd = new MySqlCommand("Update usuario set nomeUsua = @nomeUsu, Cargo=@Cargo," +
-                "DataNasc=@DataNasc Where IdUsua=@IdUsua", conexao);
+                MySqlCommand cmd = new MySqlCommand("Update tbusuario set nomeUsua=@nomeUsua, Cargo=@Cargo," +
+                "DataNasc=@DataNasc Where IdUsu=@IdUsu", conexao);
 
                 cmd.Parameters.Add("@nomeUsua", MySqlDbType.VarChar).Value = usuario.nomeUsua;
                 cmd.Parameters.Add("@Cargo", MySqlDbType.VarChar).Value = usuario.Cargo;
                 cmd.Parameters.Add("@DataNasc", MySqlDbType.VarChar).Value = usuario.DataNasc.ToString("yyyy/MM/dd");
-                cmd.Parameters.Add("@IdUsua", MySqlDbType.VarChar).Value = usuario.IdUsua;
+                cmd.Parameters.Add("@IdUsu", MySqlDbType.VarChar).Value = usuario.IdUsu;
 
                 cmd.ExecuteNonQuery();
                 conexao.Close();
@@ -38,7 +38,7 @@ namespace AppBancoLM.Repository
             {
                 conexao.Open();
 
-                MySqlCommand cmd = new MySqlCommand("insert into usuario(nomeUsua, cargo, DataNasc) " +
+                MySqlCommand cmd = new MySqlCommand("insert into tbusuario(nomeUsua, cargo, DataNasc) " +
                                                     " values (@nomeUsua, @Cargo, @DataNasc)", conexao);
                 cmd.Parameters.Add("@nomeUsua", MySqlDbType.VarChar).Value = usuario.nomeUsua;
                 cmd.Parameters.Add("@Cargo", MySqlDbType.VarChar).Value = usuario.Cargo;
@@ -55,8 +55,8 @@ namespace AppBancoLM.Repository
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("delete from usuario where IdUsua=@IdUsua", conexao);
-                cmd.Parameters.AddWithValue("@IdUsua", id);
+                MySqlCommand cmd = new MySqlCommand("delete from tbusuario where IdUsu=@IdUsu", conexao);
+                cmd.Parameters.AddWithValue("@IdUsu", id);
                 int i = cmd.ExecuteNonQuery();
                 conexao.Close();
             }
@@ -68,7 +68,7 @@ namespace AppBancoLM.Repository
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from usuario", conexao);
+                MySqlCommand cmd = new MySqlCommand("select * from tbusuario", conexao);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -81,7 +81,7 @@ namespace AppBancoLM.Repository
                     UsuarioList.Add(
                         new Usuario
                         {
-                            IdUsua = Convert.ToInt32(dr["IdUsua"]),
+                            IdUsu = Convert.ToInt32(dr["IdUsu"]),
                             nomeUsua = (string)dr["nomeUsua"],
                             Cargo = (string)dr["Cargo"],
                             DataNasc = Convert.ToDateTime(dr["DataNasc"])
@@ -96,9 +96,9 @@ namespace AppBancoLM.Repository
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT * from usuario " +
-                                                    "where IdUsua = @IdUsua", conexao);
-                cmd.Parameters.AddWithValue("@IdUsua", id);
+                MySqlCommand cmd = new MySqlCommand("SELECT * from tbusuario " +
+                                                    "where IdUsu = @IdUsu", conexao);
+                cmd.Parameters.AddWithValue("@IdUsu", id);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 MySqlDataReader dr;
@@ -107,7 +107,7 @@ namespace AppBancoLM.Repository
                 dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 while (dr.Read())
                 {
-                    usuario.IdUsua = Convert.ToInt32(dr["IdUsua"]);
+                    usuario.IdUsu = Convert.ToInt32(dr["IdUsu"]);
                     usuario.nomeUsua = (string)(dr["nomeUsu"]);
                     usuario.Cargo = (string)(dr["Cargo"]);
                     usuario.DataNasc = Convert.ToDateTime(dr["DataNasc"]);
